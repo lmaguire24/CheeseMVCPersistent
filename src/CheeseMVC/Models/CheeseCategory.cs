@@ -9,10 +9,7 @@ namespace CheeseMVC.Models
     {
         public string Name { get; set; }
         public int ID { get; set; }
-    }
 
-    public class Cheeses
-    {
-        public IList<Cheese> Cheese { get; set; }
+        public IList<Cheese> Cheeses { get; set; }
     }
 }
