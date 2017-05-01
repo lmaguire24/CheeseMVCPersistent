@@ -15,7 +15,7 @@ namespace CheeseMVC.Controllers
 
         public MenuController(CheeseDbContext dbContext)
             {
-            context = dbContext;
+                context = dbContext;
             }
 
         //GET: /<controllers>/
@@ -27,8 +27,8 @@ namespace CheeseMVC.Controllers
 
             public IActionResult Add()
             {
-            AddMenuViewModel addMenuViewModel = new AddMenuViewModel();
-            return View(addMenuViewModel);
+                AddMenuViewModel addMenuViewModel = new AddMenuViewModel();
+                return View(addMenuViewModel);
             }
             
             [HttpPost]
@@ -41,10 +41,10 @@ namespace CheeseMVC.Controllers
                             Name = addMenuViewModel.Name
                         };
 
-                context.Menus.Add(newMenu);
-                context.SaveChanges();
+                    context.Menus.Add(newMenu);
+                    context.SaveChanges();
 
-                return Redirect("/Menu/ViewMenu/" + newMenu.ID);
+                    return Redirect("/Menu/ViewMenu/" + newMenu.ID);
 
                 }
 
@@ -72,9 +72,9 @@ namespace CheeseMVC.Controllers
             // /Menu/AddItem/3
             public IActionResult AddItem(int id)
             {
-            Menu menu = context.Menus.Single(m => m.ID == id);
-            List<Cheese> cheeses = context.Cheeses.ToList();
-            return View(new AddMenuItemViewModel(menu, cheeses));
+                Menu menu = context.Menus.Single(m => m.ID == id);
+                List<Cheese> cheeses = context.Cheeses.ToList();
+                return View(new AddMenuItemViewModel(menu, cheeses));
             }
 
         [HttpPost]
