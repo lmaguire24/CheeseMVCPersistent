@@ -2,13 +2,11 @@
 using CheeseMVC.Models;
 using CheeseMVC.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace CheeseMVC.Controllers
-{
+    {
     public class CategoryController : Controller
     {
         private readonly CheeseDbContext context;
@@ -18,6 +16,7 @@ namespace CheeseMVC.Controllers
             context = dbContext;
         }
 
+        // GET controller/
         public IActionResult Index()
         {
             List<CheeseCategory> categories = context.Categories.ToList();
@@ -26,28 +25,28 @@ namespace CheeseMVC.Controllers
 
         public IActionResult Add()
         {
-            AddCategoryViewModel AddCategoryViewModel = new AddCategoryViewModel();
-            return View(AddCategoryViewModel);
+            AddCategoryViewModel addCategoryViewModel = new AddCategoryViewModel();
+            return View(addCategoryViewModel);
         }
 
         [HttpPost]
-        public IActionResult Add(AddCategoryViewModel AddCategoryViewModel)
+        public IActionResult Add(AddCategoryViewModel addCategoryViewModel)
         {
             if (ModelState.IsValid)
             {
                 // Add the new cheese to my existing cheeses
                 CheeseCategory newCategory = new CheeseCategory
                 {
-                    Name = AddCategoryViewModel.Name,
+                    Name = addCategoryViewModel.Name
                 };
 
                 context.Categories.Add(newCategory);
                 context.SaveChanges();
 
-                return Redirect("/");
+                CategoryController:  return Redirect("/Category");
             }
 
-            return View(AddCategoryViewModel);
+            return View(addCategoryViewModel);
         }
     }
 

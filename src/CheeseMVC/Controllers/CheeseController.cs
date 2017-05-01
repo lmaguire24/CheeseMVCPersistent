@@ -21,7 +21,6 @@ namespace CheeseMVC.Controllers
         public IActionResult Index()
         {
             IList<Cheese> cheeses = context.Cheeses.Include(c => c.Category).ToList();
-
             return View(cheeses);
         }
 
@@ -42,10 +41,10 @@ namespace CheeseMVC.Controllers
 
                 Cheese newCheese = new Cheese
                     {
-                    Name = addCheeseViewModel.Name,
-                    Description = addCheeseViewModel.Description,
-                    Category = newCheeseCategory,
-                };
+                        Name = addCheeseViewModel.Name,
+                        Description = addCheeseViewModel.Description,
+                        Category = newCheeseCategory
+                    };
 
                 context.Cheeses.Add(newCheese);
                 context.SaveChanges();
@@ -76,5 +75,21 @@ namespace CheeseMVC.Controllers
 
             return Redirect("/");
         }
+
+        public IActionResult Category(int id)
+            {
+            if (id == 0)
+                {
+                return Redirect("/Category");
+                }
+
+                CheeseCategory theCategory = context.Categories
+                .Include(cat => cat.Cheeses)
+                .Single(cat => cat.ID == id);
+                ViewBag.title = "Cheese in category: " + theCategory.Name;
+                return View("Index", theCategory.Cheeses);
+
+            }
+
     }
 }
